@@ -3,7 +3,30 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - tempTextField
+  - GeolocationValidationStartCounter
+  - GeolocationAccessStatus
+  - GeolocationInitialization
+  - GeolocationPositionAtInitialization
+  - GeolocationDataLastPosition
+  - GeolocationLastStatus
+  - GeolocationLastPosition
+  - GeolocationNextPositionInQueue
+  - GeolocationInitDesiredAccuracy
+  - GeolocationInitDesiredAccuracyInMeters
+  - GeolocationInitReportInterval
+  - GeolocationInitMovementThreshold
+  - GeolocationBubbledException
+  - MainCanvasDeveloperUI
+  - MainCanvasUserUI
+  - GeolocationSDKView
+  - LastPositionReadLatitude
+  - LastPositionReadLongitude
+  - LastPositionReadAltitude
+  - NextPositionInQueueLatitude
+  - NextPositionInQueueLongitude
+  - NextPositionInQueueAltitude
   layers:
   - Default
   - TransparentFX

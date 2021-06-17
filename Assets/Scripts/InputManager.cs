@@ -10,8 +10,12 @@ using MixedReality.Devices.AtlasButton;
 public class InputManager : MonoBehaviour
 {
 
-
     private HudsonInput hudsonInput = null;
+    public TextMeshProUGUI ViewMessage;
+    public TextMeshProUGUI PuckMessage;
+
+
+    private bool centerPressed = false;
 
     private void Awake()
     {
@@ -26,6 +30,36 @@ public class InputManager : MonoBehaviour
         }
     }
 
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateUI();
+    }
+
+
+    /// <summary>
+    /// Updates each of the input state boxes by simply reading
+    /// if they're pressed at the frame this is happening
+    /// </summary>
+    private void UpdateUI()
+    {
+#if ENABLE_WINMD_SUPPORT
+        if (hudsonInput.IsSetUp)
+        {
+            // handle UI updates
+            ViewMessage.text = "";
+            PuckMessage.text = centerPressed ? "Puck Center: ON": "Puck Center: OFF";
+        }
+        else
+        {
+            ViewMessage.text = "HudsonInput failed to setup";
+        }
+#else
+        ViewMessage.text = "Platform not supported";
+#endif
+    }
+
     #region Main Input Controls
 
     /// <summary>
@@ -38,6 +72,18 @@ public class InputManager : MonoBehaviour
     {
 #if ENABLE_WINMD_SUPPORT
         #region BEGIN PuckDPad
+
+         hudsonInput.PuckCenter.ButtonPressed += (btn) =>
+        {
+            centerPressed = true;
+        };
+        hudsonInput.PuckCenter.ButtonReleased += (btn) =>
+        {
+            centerPressed = false;
+            //hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: false);
+        };
+
+        /*
         hudsonInput.PuckDPadDown.ButtonPressed += (btn) =>
         {
             hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: true);
@@ -73,9 +119,11 @@ public class InputManager : MonoBehaviour
         {
             hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: false);
         };
+        */
         #endregion
 
         #region BEGIN ZOOM
+        /*
         hudsonInput.PuckRockerDown.ButtonPressed += (btn) =>
         {
             hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: true);
@@ -93,20 +141,11 @@ public class InputManager : MonoBehaviour
         {
             hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: false);
         };
+        */
         #endregion
 
         #region BEGIN CONTROL BUTTONS
-
-        hudsonInput.PuckCenter.ButtonPressed += (btn) =>
-        {
-            HandlePuckCenter();
-        };
-        hudsonInput.PuckCenter.ButtonReleased += (btn) =>
-        {
-            hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: false);
-        };
-
-
+  /*
         hudsonInput.PuckTopRocker.ButtonPressed += (btn) =>
         {
             hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: true);
@@ -170,9 +209,11 @@ public class InputManager : MonoBehaviour
         {
             hudsonInput.PuckButtonEventHandler(btn.ButtonType, isPressed: false);
         };
+        */
         #endregion
 
         #region BEGIN DIALS
+        /*
         hudsonInput.HudDialLeft.RotationChanged += (dial, args) =>
         {
             hudsonInput.DialEventHandler(dial.DialType, args.RotaryPosition);
@@ -181,6 +222,7 @@ public class InputManager : MonoBehaviour
         {
             hudsonInput.DialEventHandler(dial.DialType, args.RotaryPosition);
         };
+        */
         #endregion
 
 #endif
